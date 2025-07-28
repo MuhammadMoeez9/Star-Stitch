@@ -486,8 +486,8 @@ export default function EmbroideryDigitizingWebsite() {
               <CardHeader className="px-0 pt-0">
                 <CardTitle className="text-2xl">Send Us Your Project</CardTitle>
                 <CardDescription>
-                  Fill out the form below and we'll get back to you within 2
-                  hours.
+                  Fill out the form below and we&apos;ll get back to you within
+                  2 hours.
                 </CardDescription>
               </CardHeader>
               <CardContent className="px-0">
