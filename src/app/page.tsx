@@ -33,7 +33,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Loader from "@/components/ui/Loader";
 
-export const AuthButton = () => {
+const AuthButton = () => {
   const { user, logout } = useAuth();
   const [loading, setLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
