@@ -22,11 +22,14 @@ const LoginPage = () => {
     try {
       await login(email, password);
       router.push("/");
-    } catch (err: any) {
-      console.error(err.message);
-      setError("Invalid email or password.");
-    } finally {
-      setSubmitting(false);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(err.message);
+        setError("Invalid email or password.");
+      } else {
+        console.error("Unexpected error", err);
+        setError("Something went wrong.");
+      }
     }
   };
   return (

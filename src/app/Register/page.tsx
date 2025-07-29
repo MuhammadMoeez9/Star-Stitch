@@ -20,7 +20,7 @@ const Page = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
@@ -42,15 +42,19 @@ const Page = () => {
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         email: user.email,
-        role: "user", // default role
+        role: "user",
         createdAt: new Date(),
       });
 
       alert("User registered successfully!");
-
-      // Optional: redirect or clear form
-    } catch (err) {
-      console.error(err);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(err.message);
+        setError(err.message || "An error occurred.");
+      } else {
+        console.error("Unknown error:", err);
+        setError("Something went wrong.");
+      }
     }
   };
 
