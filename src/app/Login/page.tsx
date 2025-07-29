@@ -14,22 +14,21 @@ const LoginPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
     setError("");
 
     try {
       await login(email, password);
-      router.push("/"); // ✅ redirect to homepage after login
-    } catch (err) {
+      router.push("/");
+    } catch (err: any) {
       console.error(err.message);
       setError("Invalid email or password.");
     } finally {
-      setSubmitting(false); // ⏳ re-enable form after login attempt
+      setSubmitting(false);
     }
   };
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-white dark:bg-gray-900 px-4">
       <form
