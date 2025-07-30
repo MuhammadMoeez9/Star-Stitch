@@ -21,9 +21,9 @@ const AuthButton = () => {
       Logout
     </Button>
   ) : (
-    <Button className="bg-blue-600 hover:bg-blue-700">
-      <Link href="/Login">Login</Link>
-    </Button>
+    <Link href="/Login">
+      <Button className="bg-blue-600 hover:bg-blue-700">Login</Button>
+    </Link>
   );
 };
 

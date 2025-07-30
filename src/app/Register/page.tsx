@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Scissors } from "lucide-react";
+import { Scissors, Eye, EyeOff } from "lucide-react";
 import Loader from "@/components/ui/Loader";
 import { auth, db } from "@/components/ui/Firebase"; // adjust the path as needed
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import Link from "next/link";
 
 const Page = () => {
   const [loading, setLoading] = useState(true);
@@ -12,6 +13,8 @@ const Page = () => {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -97,7 +100,7 @@ const Page = () => {
         </div>
 
         {/* Password Field */}
-        <div className="mb-5">
+        <div className="mb-5 relative">
           <label
             htmlFor="password"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -105,17 +108,29 @@ const Page = () => {
             Your password
           </label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
             required
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute top-[38px] right-3 text-gray-600 dark:text-gray-300"
+            tabIndex={-1}
+          >
+            {showPassword ? (
+              <EyeOff className="h-5 w-5" />
+            ) : (
+              <Eye className="h-5 w-5" />
+            )}
+          </button>
         </div>
 
         {/* Repeat Password */}
-        <div className="mb-5">
+        <div className="mb-5 relative">
           <label
             htmlFor="repeat-password"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -123,13 +138,25 @@ const Page = () => {
             Repeat password
           </label>
           <input
-            type="password"
+            type={showRepeatPassword ? "text" : "password"}
             id="repeat-password"
             value={repeatPassword}
             onChange={(e) => setRepeatPassword(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
             required
           />
+          <button
+            type="button"
+            onClick={() => setShowRepeatPassword((prev) => !prev)}
+            className="absolute top-[38px] right-3 text-gray-600 dark:text-gray-300"
+            tabIndex={-1}
+          >
+            {showRepeatPassword ? (
+              <EyeOff className="h-5 w-5" />
+            ) : (
+              <Eye className="h-5 w-5" />
+            )}
+          </button>
         </div>
 
         {/* Terms Checkbox */}
@@ -153,7 +180,12 @@ const Page = () => {
             </a>
           </label>
         </div>
-
+        <div className="pb-1">
+          Already Have an Account?
+          <span className="pl-1 text-blue-600 hover:underline dark:text-blue-500">
+            <Link href="/Login">Sign In</Link>
+          </span>
+        </div>
         {/* Submit Button */}
         <button
           type="submit"

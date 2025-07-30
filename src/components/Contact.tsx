@@ -1,3 +1,5 @@
+"use client";
+import { useEffect, useState } from "react";
 import { Badge } from "./ui/badge";
 import {
   Card,
@@ -10,7 +12,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { useAuth } from "@/app/context/AuthContext"; // Make sure this is correct
+import { db } from "@/components/ui/Firebase"; // Adjust import path to your Firebase config
+import { doc, getDoc } from "firebase/firestore";
+
 export default function Footer() {
+  const { user } = useAuth();
+  const userEmail = user?.email || "";
   return (
     <section id="contact" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -58,7 +66,12 @@ export default function Footer() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Email Address
                   </label>
-                  <Input type="email" placeholder="john@example.com" />
+                  <Input
+                    type="email"
+                    value={userEmail}
+                    placeholder="john@example.com"
+                    disabled={!!userEmail}
+                  />
                 </div>
 
                 <div>
@@ -93,7 +106,7 @@ export default function Footer() {
                 </div>
 
                 <Button className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-3">
-                  Get Free Quote
+                  Send Mail
                 </Button>
               </form>
             </CardContent>
