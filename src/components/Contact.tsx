@@ -145,7 +145,7 @@ export default function Footer() {
                     Send us your files and requirements
                   </p>
                   <p className="font-medium text-green-600">
-                    orders@starstitch.com
+                  info.starstitch@gmail.com
                   </p>
                   <p className="text-sm text-gray-500">
                     Response within 2 hours

@@ -56,6 +56,9 @@ export default function Header() {
             <Link href="/Service" className="text-gray-700 hover:text-blue-600">
               Services
             </Link>
+            <Link href="/AboutUs" className="text-gray-700 hover:text-blue-600">
+              About Us
+            </Link>
             <Link href="/Contact" className="text-gray-700 hover:text-blue-600">
               Contact
             </Link>

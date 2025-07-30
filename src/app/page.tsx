@@ -4,6 +4,7 @@ import ServicesSection from "@/components/Service";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Portfolio from "@/components/Portfolio";
+import About from "@/components/About";
 
 export default function EmbroideryDigitizingWebsite() {
   return (
@@ -12,6 +13,7 @@ export default function EmbroideryDigitizingWebsite() {
       <HeroSection />
       <Portfolio />
       <ServicesSection />
+      <About />
       <Contact />
       <Footer />
     </div>
