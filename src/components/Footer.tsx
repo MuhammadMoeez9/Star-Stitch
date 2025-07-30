@@ -97,16 +97,12 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Contact Info</h4>
             <div className="space-y-3 text-gray-400">
               <div className="flex items-center space-x-2">
-                <Phone className="h-4 w-4" />
-                <span>+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
-                <span>orders@starstitch.com</span>
+                <span>info.starstitch@gmail.com</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4" />
-                <span>123 Embroidery Lane, Design City, DC</span>
+                <span>Austin Texas</span>
               </div>
             </div>
           </div>

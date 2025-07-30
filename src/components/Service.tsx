@@ -96,7 +96,7 @@ export default function ServicesSection() {
               <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
                 <Zap className="h-6 w-6 text-purple-600" />
               </div>
-              <CardTitle>3D Puff Embroidery</CardTitle>
+              <CardTitle>Jacket Back</CardTitle>
               <CardDescription>
                 Create dimensional embroidery with foam backing for a raised,
                 premium look.
