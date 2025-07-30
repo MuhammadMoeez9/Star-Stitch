@@ -82,16 +82,16 @@ export default function Header() {
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200 px-4 py-4 space-y-4">
           <nav className="flex flex-col space-y-4 text-gray-700">
-            <Link href="#home" onClick={() => setIsMenuOpen(false)}>
+            <Link href="/" onClick={() => setIsMenuOpen(false)}>
               Home
             </Link>
-            <Link href="#Portfolio" onClick={() => setIsMenuOpen(false)}>
+            <Link href="/Portfolio" onClick={() => setIsMenuOpen(false)}>
               Portfolio
             </Link>
-            <Link href="#services" onClick={() => setIsMenuOpen(false)}>
+            <Link href="/Service" onClick={() => setIsMenuOpen(false)}>
               Services
             </Link>
-            <Link href="#contact" onClick={() => setIsMenuOpen(false)}>
+            <Link href="/Contact" onClick={() => setIsMenuOpen(false)}>
               Contact
             </Link>
           </nav>
