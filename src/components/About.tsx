@@ -185,7 +185,7 @@ export default function About() {
           </motion.div>
         </div>
       </section>
-      <section className="py-20 bg-gray-50" ref={timelineRef}>
+      <section className="py-20 bg-gray-50 overflow-x-hidden" ref={timelineRef}>
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-16"

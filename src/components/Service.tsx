@@ -7,6 +7,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import PatchImage from "@/../public/Patch.webp";
+import AppliqueImage from "@/../public/Applique.webp";
+import JacketBack from "@/../public/JacketBack.webp";
 import {
   Star,
   Zap,
@@ -76,9 +79,9 @@ export default function ServicesSection() {
             </CardHeader>
             <CardContent>
               <Image
-                src="/images/patch-embroidery.png"
+                src={PatchImage}
                 alt="Patch embroidery digitizing"
-                width={300}
+                width={350}
                 height={200}
                 className="rounded-lg mb-4"
               />
@@ -104,10 +107,10 @@ export default function ServicesSection() {
             </CardHeader>
             <CardContent>
               <Image
-                src="/images/3d-puff-embroidery.png"
+                style={{ height: "280px" }}
+                src={JacketBack}
                 alt="3D puff embroidery digitizing"
-                width={300}
-                height={200}
+                width={350}
                 className="rounded-lg mb-4"
               />
               <ul className="space-y-2 text-sm text-gray-600">
@@ -132,9 +135,10 @@ export default function ServicesSection() {
             </CardHeader>
             <CardContent>
               <Image
-                src="/images/applique-work.png"
+                style={{ height: "350px" }}
+                src={AppliqueImage}
                 alt="Applique embroidery digitizing"
-                width={300}
+                width={350}
                 height={200}
                 className="rounded-lg mb-4"
               />

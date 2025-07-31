@@ -94,6 +94,9 @@ export default function Header() {
             <Link href="/Service" onClick={() => setIsMenuOpen(false)}>
               Services
             </Link>
+                <Link href="/AboutUs" className="text-gray-700 hover:text-blue-600">
+              About Us
+            </Link>
             <Link href="/Contact" onClick={() => setIsMenuOpen(false)}>
               Contact
             </Link>
