@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Menu, X, Scissors } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/app/context/AuthContext";
@@ -9,6 +10,7 @@ import { useAuth } from "@/app/context/AuthContext";
 const AuthButton = () => {
   const { user, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -17,16 +19,25 @@ const AuthButton = () => {
   if (!mounted) return null;
 
   return user ? (
-    <Button onClick={logout} className="bg-red-600 hover:bg-red-700">
-      Logout
-    </Button>
+    <div className="flex gap-2">
+      {user.role === "Admin" && (
+        <Button
+          className="bg-blue-500 hover:bg-blue-600"
+          onClick={() => router.push("/Admin")}
+        >
+          Admin
+        </Button>
+      )}
+      <Button onClick={logout} className="bg-red-600 hover:bg-red-700">
+        Logout
+      </Button>
+    </div>
   ) : (
     <Link href="/Login">
       <Button className="bg-blue-600 hover:bg-blue-700">Login</Button>
     </Link>
   );
 };
-
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -94,7 +105,7 @@ export default function Header() {
             <Link href="/Service" onClick={() => setIsMenuOpen(false)}>
               Services
             </Link>
-                <Link href="/AboutUs" className="text-gray-700 hover:text-blue-600">
+            <Link href="/AboutUs" className="text-gray-700 hover:text-blue-600">
               About Us
             </Link>
             <Link href="/Contact" onClick={() => setIsMenuOpen(false)}>

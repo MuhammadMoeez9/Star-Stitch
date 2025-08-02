@@ -14,11 +14,59 @@ import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useAuth } from "@/app/context/AuthContext"; // Make sure this is correct
 import { db } from "@/components/ui/Firebase"; // Adjust import path to your Firebase config
-import { doc, getDoc } from "firebase/firestore";
+import { doc, addDoc, collection } from "firebase/firestore";
 
 export default function Footer() {
   const { user } = useAuth();
   const userEmail = user?.email || "";
+
+  // 01 Send Email
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+    service: "Logo Digitizing",
+    details: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      await addDoc(collection(db, "Emails"), {
+        ...formData,
+        email: userEmail,
+        createdAt: new Date(),
+      });
+
+      alert("Your project has been submitted!");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        phone: "",
+        service: "Logo Digitizing",
+        details: "",
+      });
+    } catch (err) {
+      console.error("Error submitting form:", err);
+      alert("Something went wrong. Please try again.");
+    }
+  };
+  // 02 Send Email
+
   return (
     <section id="contact" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -46,19 +94,31 @@ export default function Footer() {
               </CardDescription>
             </CardHeader>
             <CardContent className="px-0">
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       First Name
                     </label>
-                    <Input placeholder="John" />
+                    <Input
+                      name="firstName"
+                      placeholder="John"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      required
+                    />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Last Name
                     </label>
-                    <Input placeholder="Doe" />
+                    <Input
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      placeholder="Doe"
+                      required
+                    />
                   </div>
                 </div>
 
@@ -70,7 +130,7 @@ export default function Footer() {
                     type="email"
                     value={userEmail}
                     placeholder="john@example.com"
-                    disabled={!!userEmail}
+                    disabled
                   />
                 </div>
 
@@ -78,14 +138,26 @@ export default function Footer() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Phone Number
                   </label>
-                  <Input type="tel" placeholder="+1 (555) 123-4567" />
+                  <Input
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+1 (555) 123-4567"
+                    required
+                  />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Service Needed
                   </label>
-                  <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <select
+                    name="service"
+                    value={formData.service}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
                     <option>Logo Digitizing</option>
                     <option>Patch Digitizing</option>
                     <option>3D Puff Embroidery</option>
@@ -100,12 +172,19 @@ export default function Footer() {
                     Project Details
                   </label>
                   <Textarea
+                    name="details"
+                    value={formData.details}
+                    onChange={handleChange}
+                    required
                     placeholder="Please describe your project, including size, colors, and any special requirements..."
                     rows={4}
                   />
                 </div>
 
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-3">
+                <Button
+                  type="submit"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-3"
+                >
                   Send Mail
                 </Button>
               </form>
@@ -145,7 +224,7 @@ export default function Footer() {
                     Send us your files and requirements
                   </p>
                   <p className="font-medium text-green-600">
-                  info.starstitch@gmail.com
+                    info.starstitch@gmail.com
                   </p>
                   <p className="text-sm text-gray-500">
                     Response within 2 hours

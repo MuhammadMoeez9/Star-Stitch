@@ -2,6 +2,8 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "@/components/ui/Firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/components/ui/Firebase"; // Make sure `db` is exported from Firebase config
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -26,6 +28,34 @@ export const AuthProvider = ({ children }) => {
     signInWithEmailAndPassword(auth, email, password);
 
   const logout = () => signOut(auth);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        const userDocRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userDocRef);
+
+        if (userSnap.exists()) {
+          setUser({
+            uid: currentUser.uid,
+            email: currentUser.email,
+            role: userSnap.data().role || "User", // fallback role
+          });
+        } else {
+          setUser({
+            uid: currentUser.uid,
+            email: currentUser.email,
+            role: "User",
+          });
+        }
+      } else {
+        setUser(null);
+      }
+
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, login, logout, loading }}>
