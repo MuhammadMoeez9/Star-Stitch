@@ -1,8 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, orderBy } from "firebase/firestore";
-import { db } from "@/components/ui/Firebase"; // adjust path if needed
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  Timestamp, // ✅ import Timestamp
+} from "firebase/firestore";
+import { db } from "@/components/ui/Firebase";
 import Loader from "@/components/ui/Loader";
 
 interface EmailEntry {
@@ -13,7 +19,7 @@ interface EmailEntry {
   phone: string;
   service: string;
   details: string;
-  createdAt: any;
+  createdAt: Timestamp | null; // ✅ use correct type
 }
 
 const ITEMS_PER_PAGE = 30;
@@ -28,10 +34,19 @@ export default function AdminPage() {
       try {
         const q = query(collection(db, "Emails"), orderBy("createdAt", "desc"));
         const snapshot = await getDocs(q);
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as EmailEntry[];
+        const data = snapshot.docs.map((doc) => {
+          const entry = doc.data();
+          return {
+            id: doc.id,
+            email: entry.email,
+            firstName: entry.firstName,
+            lastName: entry.lastName,
+            phone: entry.phone,
+            service: entry.service,
+            details: entry.details,
+            createdAt: entry.createdAt ?? null, // 🔒 safety for missing field
+          };
+        }) as EmailEntry[];
         setEmails(data);
       } catch (err) {
         console.error("Error fetching emails:", err);
@@ -40,12 +55,14 @@ export default function AdminPage() {
 
     fetchEmails();
   }, []);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setloading(false);
     }, 400);
     return () => clearTimeout(timer);
   }, []);
+
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedEmails = emails.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   const totalPages = Math.ceil(emails.length / ITEMS_PER_PAGE);
@@ -53,6 +70,7 @@ export default function AdminPage() {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
   if (loading) return <Loader />;
 
   return (
