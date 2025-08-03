@@ -5,7 +5,6 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Portfolio from "@/components/Portfolio";
 import About from "@/components/About";
-import Loader from "@/components/ui/Loader";
 
 export default function EmbroideryDigitizingWebsite() {
   return (
