@@ -9,7 +9,10 @@ import {
 import Image from "next/image";
 import PatchImage from "@/../public/Patch.webp";
 import AppliqueImage from "@/../public/Applique.webp";
+import LogoDigitizing from "@/../public/LogoDigitizing.webp";
+import VectorTracing from "@/../public/VectorTracing.webp";
 import JacketBack from "@/../public/JacketBack.webp";
+import RushOrderImage from "@/../public/RushOrderImage.webp";
 import {
   Star,
   Zap,
@@ -51,9 +54,9 @@ export default function ServicesSection() {
             </CardHeader>
             <CardContent>
               <Image
-                src="/images/logo-digitizing.png"
+                src={LogoDigitizing}
                 alt="Logo embroidery digitizing"
-                width={300}
+                width={350}
                 height={200}
                 className="rounded-lg mb-4"
               />
@@ -164,9 +167,9 @@ export default function ServicesSection() {
             </CardHeader>
             <CardContent>
               <Image
-                src="/images/vector-tracing.png"
+                src={VectorTracing}
                 alt="Vector tracing service"
-                width={300}
+                width={350}
                 height={200}
                 className="rounded-lg mb-4"
               />
@@ -191,13 +194,13 @@ export default function ServicesSection() {
             </CardHeader>
             <CardContent>
               <Image
-                src="/images/rush-order.png"
+                src={RushOrderImage}
                 alt="Rush order embroidery digitizing"
-                width={300}
+                width={350}
                 height={200}
                 className="rounded-lg mb-4"
               />
-              <ul className="space-y-2 text-sm text-gray-600">
+              <ul className="space-y-2 text-sm text-gray-600 pt-6">
                 <li>• 2-4 hour turnaround available</li>
                 <li>• Same-day delivery</li>
                 <li>• Priority processing</li>
