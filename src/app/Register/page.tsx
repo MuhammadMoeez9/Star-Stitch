@@ -6,6 +6,8 @@ import { auth, db } from "@/components/ui/Firebase"; // adjust the path as neede
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import Link from "next/link";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [loading, setLoading] = useState(true);
@@ -15,6 +17,7 @@ const Page = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -33,7 +36,6 @@ const Page = () => {
     }
 
     try {
-      // Create user in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -41,7 +43,6 @@ const Page = () => {
       );
       const user = userCredential.user;
 
-      // Save user data to Firestore
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         email: user.email,
@@ -49,7 +50,8 @@ const Page = () => {
         createdAt: new Date(),
       });
 
-      alert("User registered successfully!");
+      toast.success("User registered successfully!");
+      router.push("/Login");
     } catch (err: unknown) {
       if (err instanceof Error) {
         console.error(err.message);
@@ -60,7 +62,6 @@ const Page = () => {
       }
     }
   };
-
   if (loading) return <Loader />;
 
   return (

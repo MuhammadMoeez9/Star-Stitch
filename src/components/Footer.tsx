@@ -12,7 +12,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <Scissors className="h-8 w-8 text-blue-400" />
-              <span className="text-2xl font-bold">Star Stitch</span>
+              <span className="text-2xl font-bold">Star Stitch Digitizing</span>
             </div>
             <p className="text-gray-400 mb-4">
               Professional embroidery digitizing services with expert quality

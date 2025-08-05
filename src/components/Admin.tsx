@@ -75,7 +75,7 @@ export default function AdminPage() {
 
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6">Submitted Projects</h1>
+      <h1 className="text-3xl font-bold mb-6">Emails</h1>
 
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300 rounded shadow">

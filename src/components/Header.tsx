@@ -23,7 +23,7 @@ const AuthButton = () => {
       {user.role === "Admin" && (
         <Button
           className="bg-blue-500 hover:bg-blue-600"
-          onClick={() => router.push("/Admin")}
+          onClick={() => router.push("/Dashboard/Admin")}
         >
           Admin
         </Button>
@@ -49,7 +49,7 @@ export default function Header() {
           <div className="flex items-center space-x-2">
             <Scissors className="h-8 w-8 text-blue-600" />
             <span className="text-2xl font-bold text-gray-900">
-              Star Stitch
+              Star Stitch Digitizing
             </span>
           </div>
 

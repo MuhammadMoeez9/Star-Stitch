@@ -15,6 +15,9 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useAuth } from "@/app/context/AuthContext"; // Make sure this is correct
 import { db } from "@/components/ui/Firebase"; // Adjust import path to your Firebase config
 import { doc, addDoc, collection } from "firebase/firestore";
+import { FaFacebook } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 export default function Footer() {
   const { user } = useAuth();
@@ -52,7 +55,12 @@ export default function Footer() {
         createdAt: new Date(),
       });
 
-      alert("Your project has been submitted!");
+      Swal.fire({
+        icon: "success",
+        title: "Submitted!",
+        text: "Your project has been submitted.",
+      });
+
       setFormData({
         firstName: "",
         lastName: "",
@@ -62,9 +70,15 @@ export default function Footer() {
       });
     } catch (err) {
       console.error("Error submitting form:", err);
-      alert("Something went wrong. Please try again.");
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong. Please try again.",
+      });
     }
   };
+
   // 02 Send Email
 
   return (
@@ -196,14 +210,14 @@ export default function Footer() {
             <Card className="p-6">
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Phone className="h-6 w-6 text-blue-600" />
+                  <FaFacebook className="h-6 w-6 text-blue-600" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">
-                    Phone Support
+                    FaceBook Support
                   </h3>
                   <p className="text-gray-600 mb-2">
-                    Call us for immediate assistance
+                    DM us for immediate assistance
                   </p>
                   <p className="font-medium text-blue-600">+1 (555) 123-4567</p>
                   <p className="text-sm text-gray-500">Mon-Fri: 8AM-8PM EST</p>
@@ -236,14 +250,14 @@ export default function Footer() {
             <Card className="p-6">
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <MapPin className="h-6 w-6 text-purple-600" />
+                  <FaInstagram className="h-6 w-6 text-red-600" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-2">
-                    Office Location
+                    Instagram Support
                   </h3>
                   <p className="text-gray-600 mb-2">
-                    Visit our digitizing studio
+                    DM us for immediate assistance
                   </p>
                   <p className="font-medium text-purple-600">
                     123 Embroidery Lane
